@@ -3,6 +3,19 @@
 #include <vector>
 #include <algorithm>
 
+void print(int& pile_num, int& pile_size, std::vector<std::list<int>>& piles) {
+    for (int i = 0;i < pile_size; i++) {
+        for (int j = 0; j < pile_num; j++) {
+            if (i < piles[j].size()) {
+                std::cout << *std::next(piles[j].begin(), i) << " ";
+                continue;
+            }
+            std::cout << "0 ";
+        }
+        std::cout << "\n";
+    }
+}
+
 int main() {
     int pile_num;
     int pile_size;
@@ -16,6 +29,8 @@ int main() {
     for (int j = pile_size; j > 0; j--) {
         piles[0].push_back(j);
     }
+
+    print(pile_num, pile_size, piles);
 
     int level = 0;
     int last_out = 0;
@@ -70,7 +85,7 @@ int main() {
             int n = *piles[piles.size() - 1].begin() + 1;
             if (n == pile_size + 1) {
                 for (auto j = piles[last_pos].begin(); j != piles[last_pos].end(); j++) {
-                    std::cout << *j << "\n";
+                    // std::cout << *j << "\n";
                     if (n - *j != 1) {
                         std::cout << "Not Hanoi\n";
                         break;
@@ -79,13 +94,14 @@ int main() {
                 }
                 if (n == 1) {
                     std::cout << "Hanoi\n";
+                    print(pile_num, pile_size, piles);
                     return 0;
                 }
             }
         }
-        for (int i = 0; i < piles.size(); i++) {
-            std::cout << i << "n\n";
-            std::cout << piles[i].back() << "\n";
-        }
+
+        print(pile_num, pile_size, piles);
     }
+    std::cout << "\n";
+
 }
